@@ -47,7 +47,7 @@ são proibidas)
 **Responda**: A sua solução é extensível para um mundo 3 x 3? E para um mundo 6 x 6? Explique sua
 resposta.
 
-**Resposta: Em nossa solução não é possível extender a solução para outros mundos sem alterar o agente, porém é de fácil adaptação para outros mundos, pois basta adicionar mais linhas ao nosso mapeamento que o agente já conseguiria identificar a sala e limpa-la**
+**<span style="color:red">Resposta: Em nossa solução não é possível extender a solução para outros mundos sem alterar o agente, porém é de fácil adaptação para outros mundos, pois basta adicionar mais linhas ao nosso mapeamento que o agente já conseguiria identificar a sala e limpa-la</span>**
 
 **Como o agente reativo simples funciona:**
 
@@ -89,7 +89,7 @@ função **checkObj(sala)**.
 
 **Responda:** É possível ter todo o espaço limpo efetivamente? Justifique sua resposta.
 
-**Resposta: Sim o agente percorrerá a sala inteira e só irá efetivamente parar quando a sala estiver totalmente limpa (quando sua base de conhecimento da sala, estiver sem nenhum ponto, que caracteriza a sala limpa). E na solução anterior com o agente reativo simples também é possível ter a sala limpa, pois o agente ficará em loop verificando se a sua posição atual está suja**
+**<span style="color:red">Resposta: Sim o agente percorrerá a sala inteira e só irá efetivamente parar quando a sala estiver totalmente limpa (quando sua base de conhecimento da sala, estiver sem nenhum ponto, que caracteriza a sala limpa). E na solução anterior com o agente reativo simples também é possível ter a sala limpa, pois o agente ficará em loop verificando se a sua posição atual está suja </span>**
 
 **Como o agente baseado em objetivo funciona:**
 
