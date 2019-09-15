@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import random
  
+# Cria a sala e o aspirador de pó, de 0.5 segundos ele atualiza com o novo estado da sala e do aspirador
 def exibir(matriz):
     plt.imshow(matriz, 'gray')
     plt.show(block=False)
@@ -9,6 +10,7 @@ def exibir(matriz):
     plt.pause(0.5)
     plt.clf()
  
+# Recebe um int como parâmetro, utilizado para saber em que direção o aspirador deve andar
 def agente_reativo_simples(percepcao,):
     global currLine
     global currCol
@@ -24,7 +26,8 @@ def agente_reativo_simples(percepcao,):
     elif percepcao == 6:
         currCol -= 1
         return 'esquerda'
- 
+
+# Cria a sala randomicamente com os pontos limpos e sujos
 def create_random_matriz(size):
     size = size
     matrix = np.full((size, size), 0)
@@ -49,7 +52,9 @@ if __name__ == '__main__':
     currCol = 1
  
     matriz = create_random_matriz(6)
-                 #x,y,d
+
+    # Mapeamento utilizado para saber em que direção andar na sala
+                 #x,j,d
     mapeamento = [[1, 1, 3],
                   [1, 2, 3],
                   [1, 3, 3],
@@ -59,9 +64,7 @@ if __name__ == '__main__':
                   [4, 4, 5],
                   [4, 3, 6],
                   [3, 3, 6],
-                  [2, 3, 6],
-                  [1, 3, 5],
-                  [1, 2, 4],
+                  [2, 3, 5],
                   [2, 2, 4],
                   [3, 2, 4],
                   [4, 2, 5],
@@ -69,6 +72,8 @@ if __name__ == '__main__':
                   [3, 1, 6],
                   [2, 1, 6]]
  
+    # Compara cada posiciçao do mapeamento com o estado do aspirador, quando a posição do aspirador corresponde
+    # a uma posição do mapeamento ele obtem sua "percepção" para saber se tem que limpar ou andar para a proxima direção
     i = 0              
     while True:
         if (currCol == 1 and currLine == 1):
@@ -81,3 +86,5 @@ if __name__ == '__main__':
                 print(agente_reativo_simples(mapeamento[i][2]))
                 i += 1
             exibir(matriz)
+        pass
+    pass
