@@ -56,27 +56,26 @@ def __fitness(population):
         vector_result.append(countSum)
 
     # adicionando o vector em um dictionary com a somas...
-    #dic_vector_result = [(index, value) for index, value in enumerate(vector_result)]
     dic_vector_result = {index: value for index, value in enumerate(vector_result)}
 
-    # ordenando em ordem crescente o valores das somas...
-    #dic_vector_result = sorted(dic_vector_result, key=lambda x: x[1])
+    # ordenando em ordem crescente e cria uma lista contendo apenas as chaves
     dic_vector_result = sorted(dic_vector_result, key=dic_vector_result.get)
 
     print(vector_result)
     print(dic_vector_result)
 
-    print(swap_matrix_row(population, dic_vector_result))
+    print(create_new_mutated_matrix(population, dic_vector_result))
 
-#Método que ordena a matrix da população conforme a lista de aptidão.
-def swap_matrix_row(matrix, key_list):
-    resting_line = []
-    for i in range(len(matrix)):
-        resting_line = matrix[i]
-        matrix[i] = matrix[key_list[i]]
-        matrix[key_list[i]] = resting_line
+def create_new_mutated_matrix(matrix, key_list):
 
-    return matrix
+    new_poppulation = []
+
+    for i in range(0,10):
+        new_poppulation.append(matrix[key_list[i]])
+
+    #TODO: Aqui escolher pais e fazer a mutacao gerando 10 novos cromossomos para serem adicionados a nova populacao
+
+    return new_poppulation
 
 # Inicio do programa
 if __name__ == '__main__':
