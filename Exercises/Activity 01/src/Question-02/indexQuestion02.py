@@ -9,7 +9,7 @@ def exibir(matriz):
     plt.imshow(matriz, 'gray')
     plt.show(block=False)
     plt.plot(currCol, currLine, '*r', 'LineWidth', 5)
-    plt.pause(0.5)
+    plt.pause(0.2)
     plt.clf()
 
 # Recebe um int como parâmetro, utilizado para saber em que direção o aspirador deve andar

@@ -1,0 +1,7 @@
+
+Entrega do exercício 01, Gustavo Westarb e Bruno Vigentas
+
+Repositório do exercício: https://github.com/GustavoWestarb/ARTIFICIAL-INTELLIGENCE.git
+
+Reposta das questões: Exercises/Activity 01/README.md
+	As respostas se encontram nos tópicos e também de maneira mais fácil já na introdução.
