@@ -1,5 +1,6 @@
 import random
 import math
+import operator
 
 
 rand_x = random.sample(range(0, 100), 20)
@@ -42,9 +43,9 @@ def __fitness(population):
 
     print(dist_city_column)
 
-    vectorResult = []
+    vector_result = []
 
-    print(vectorResult)
+    print(vector_result)
 
     for i, row in enumerate(population):
         countSum = 0
@@ -52,16 +53,30 @@ def __fitness(population):
             if(j+1 <= 19):
                 countSum += dist_city_column[i][j+1]# + dist_city_column[i][j+1])
         
-        vectorResult.append(countSum)
+        vector_result.append(countSum)
 
     # adicionando o vector em um dictionary com a somas...
-    dic_vectorResult = [(index, value) for index, value in enumerate(vectorResult)]
+    #dic_vector_result = [(index, value) for index, value in enumerate(vector_result)]
+    dic_vector_result = {index: value for index, value in enumerate(vector_result)}
 
     # ordenando em ordem crescente o valores das somas...
-    dic_vectorResult = sorted(dic_vectorResult, key=lambda x: x[1])
+    #dic_vector_result = sorted(dic_vector_result, key=lambda x: x[1])
+    dic_vector_result = sorted(dic_vector_result, key=dic_vector_result.get)
 
-    print(vectorResult)
-    print(dic_vectorResult)
+    print(vector_result)
+    print(dic_vector_result)
+
+    print(swap_matrix_row(population, dic_vector_result))
+
+#Método que ordena a matrix da população conforme a lista de aptidão.
+def swap_matrix_row(matrix, key_list):
+    resting_line = []
+    for i in range(len(matrix)):
+        resting_line = matrix[i]
+        matrix[i] = matrix[key_list[i]]
+        matrix[key_list[i]] = resting_line
+
+    return matrix
 
 # Inicio do programa
 if __name__ == '__main__':
