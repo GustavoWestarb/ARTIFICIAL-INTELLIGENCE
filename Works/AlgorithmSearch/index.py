@@ -73,9 +73,23 @@ def create_new_mutated_matrix(matrix, key_list):
     for i in range(0,10):
         new_poppulation.append(matrix[key_list[i]])
 
-    #TODO: Aqui escolher pais e fazer a mutacao gerando 10 novos cromossomos para serem adicionados a nova populacao
+    line_list = [10, 9, 9, 8, 8, 8, 7, 7, 7, 7, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+    father = []
+    mother = []
+
+    for i in range(0,5):
+        father.append(new_poppulation[random.choice(line_list)])
+
+    for i in range(0,5):
+        mother.append(new_poppulation[random.choice(line_list)])
+
+    do_mutation(father, mother)
 
     return new_poppulation
+
+def do_mutation(father, mother):
+    # TODO: Implementar método que faz mutação
 
 # Inicio do programa
 if __name__ == '__main__':
