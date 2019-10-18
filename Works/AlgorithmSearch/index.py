@@ -1,6 +1,7 @@
 import random
 import math
 import operator
+import pandas as pd
 
 
 rand_x = random.sample(range(0, 100), 20)
@@ -84,12 +85,39 @@ def create_new_mutated_matrix(matrix, key_list):
     for i in range(0,5):
         mother.append(new_poppulation[random.choice(line_list)])
 
-    do_mutation(father, mother)
+    do_mutation_cycle(father, mother)
 
     return new_poppulation
 
-def do_mutation(father, mother):
+def do_mutation_cycle(father, mother):
     # TODO: Implementar método que faz mutação
+    random_item_chromosome = random.randint(0,20)
+
+    print("Do mutation cycle")
+    print(father)
+    print(mother)
+
+    # for i in range(len(father)):
+    #     auxItemFather = father[i][random_item_chromosome]
+    #     father[i][random_item_chromosome] = mother[i][random_item_chromosome]
+    #     mother[i][random_item_chromosome] = auxItemFather
+
+    #     resolve_duplicate_value(father, mother)
+
+    auxItemFather = father[0][random_item_chromosome]
+    father[0][random_item_chromosome] = mother[0][random_item_chromosome]
+    mother[0][random_item_chromosome] = auxItemFather
+
+    resolve_duplicate_value(father, mother)
+
+    print(father)
+    print(mother)
+
+def resolve_duplicate_value(father, mother):
+
+    print(pd.index(father))
+
+
 
 # Inicio do programa
 if __name__ == '__main__':
