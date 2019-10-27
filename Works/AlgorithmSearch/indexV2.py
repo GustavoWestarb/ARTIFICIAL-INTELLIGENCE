@@ -1,5 +1,6 @@
 import random
 import math
+import sys
 from collections import namedtuple
 
 # Cria uma linha aleatoria que vai de 0 a 20
@@ -28,7 +29,8 @@ def real_random(x, y):
 
 def _fitness(population):
     for line in population:
-        line.append(line[0])
+        if len(line) == 20:
+            line.append(line[0])
 
     rand_x = create_random_line(0, 100, len(population))
     rand_y = create_random_line(0, 100, len(population))
@@ -118,17 +120,44 @@ def append_in_new_poppulation(to_append, population):
     return population
 
 def invert_random_column(father, mother):
-    random_item_chromosome = real_random(0, 20)
-    for i in range(len(father) - 1):
+    random_item_chromosome = real_random(0, 19)
+    for i in range(len(father)):
         father_value = father[i][random_item_chromosome]
         father[i][random_item_chromosome] = mother[i][random_item_chromosome]
         mother[i][random_item_chromosome] = father_value
+
+        Retorno = vanish_repeated_value(random_item_chromosome, i, mother, father)
+
+        father = Retorno.mother
+        mother = Retorno.father
+
 
     Retorno = namedtuple('retorno', 'father mother')
     Retorno.mother = mother
     Retorno.father = father
 
     return Retorno
+
+def vanish_repeated_value(random_item_chromosome, i, mother, father):
+    repetido = False
+    for j in range(len(father[i])):
+        if j != random_item_chromosome and father[i][j] == father[i][random_item_chromosome]:
+            repetido = True
+            father_value = father[i][j]
+            father[i][j] = mother[i][j]
+            mother[i][j] = father_value
+
+            vanish_repeated_value(j, i, mother, father)
+
+            break
+
+    Retorno = namedtuple('retorno', 'mother father')
+    Retorno.father = father
+    Retorno.mother = mother
+
+    return Retorno
+
+
 
 
 def create_controll(matriz, clear_unique_values=True):
@@ -170,19 +199,19 @@ def invert_repeted_values(m_1, m_2, first):
 
 
 def do_mutation_cycle(father, mother):
-    controll = create_controll(father)
     Retorno = invert_random_column(father, mother)
+    # controll = create_controll(father)
 
     father = Retorno.father
     mother = Retorno.mother
 
-    first = True
-    while len(controll) > 0:
-        Retorno = invert_repeted_values(father, mother, first)
-        father = Retorno.father
-        mother = Retorno.mother
-        first = False
-        controll = create_controll(father)
+    # first = True
+    # while len(controll) > 0:
+    #     Retorno = invert_repeted_values(father, mother, first)
+    #     father = Retorno.father
+    #     mother = Retorno.mother
+    #     first = False
+    #     controll = create_controll(father)
 
     print(' ############################################## Pai e Maes  ##############################################')
 
@@ -198,8 +227,9 @@ def do_mutation_cycle(father, mother):
 
 
 if __name__ == '__main__':
+
     matrix = create_random_matriz()
-    for i in range(10):
+    for i in range(10000):
         matrix = _fitness(matrix)
 
     print('############################################## A matrix continua igual ?  ##############################################')
