@@ -1,5 +1,6 @@
 import random
 import math
+from collections import namedtuple
 
 # Cria uma linha aleatoria que vai de 0 a 20
 def create_random_line(x=1, y=21 , z=20):
@@ -57,22 +58,25 @@ def _fitness(population):
     # ordenando em ordem crescente e cria uma lista contendo apenas as chaves
     dic_vector_result = sorted(dic_vector_result, key=dic_vector_result.get)
 
+    new_population = []
+    # Percorre e seleciona todos os cromossomos escolhidos
+    for idx in dic_vector_result:
+        without_last = list(population[idx])
+
+        #Retiro o último elemento do cromossomo para nao entrar em loop, pois foi adicionado igual ao primeiro
+        without_last.pop()
+        new_population.append(without_last)
+
     #print(create_new_mutated_matrix(population, dic_vector_result))
-    create_new_mutated_matrix(population, dic_vector_result)
+    new_population = create_new_mutated_matrix(new_population, dic_vector_result)
+
+    return new_population
 
 
 #Comeca o processo de mutacao
 def create_new_mutated_matrix(matrix, key_list):
 
-    new_poppulation = []
-
-    #Percorre e seleciona todos os cromossomos escolhidos
-    for idx in key_list:
-        without_last = list(matrix[idx])
-
-        #Retiro o último elemento do cromossomo para nao entrar em loop, pois foi adicionado igual ao primeiro
-        without_last.pop()
-        new_poppulation.append(without_last)
+    new_poppulation = matrix[:10]
 
     #Roleta
     line_list = [9, 8, 8, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -100,13 +104,18 @@ def create_new_mutated_matrix(matrix, key_list):
     print(father)
     print(mother)
 
-    do_mutation_cycle(father, mother)
+    Retorno = do_mutation_cycle(father, mother)
 
-    new_poppulation.append(father)
-    new_poppulation.append(mother)
+    new_poppulation = append_in_new_poppulation(Retorno.son, new_poppulation)
+    new_poppulation = append_in_new_poppulation(Retorno.daughter, new_poppulation)
 
     return new_poppulation
 
+def append_in_new_poppulation(to_append, population):
+    for item in to_append:
+        population.append(item)
+
+    return population
 
 def invert_random_column(father, mother):
     random_item_chromosome = real_random(0, 20)
@@ -146,10 +155,12 @@ def invert_repeted_values(m_1, m_2, first):
             m_2[x][y] = value
             m_1[x][y] = m_2_value
 
-    print('passou')
+    Retorno = namedtuple('retorno', 'father, mother')
+    Retorno.father = m_1
+    Retorno.mother = m_2
 
-    # print(m_1)
-    # print(m_2)
+    print('passou')
+    return Retorno
 
 
 def do_mutation_cycle(father, mother):
@@ -158,7 +169,9 @@ def do_mutation_cycle(father, mother):
 
     first = True
     while len(controll) > 0:
-        invert_repeted_values(father, mother, first)
+        Retorno = invert_repeted_values(father, mother, first)
+        father = Retorno.father
+        mother = Retorno.mother
         first = False
         controll = create_controll(father)
 
@@ -168,10 +181,17 @@ def do_mutation_cycle(father, mother):
     print(mother)
     #controll = create_controll(father)
 
+    Retorno = namedtuple('retorno', 'son daughter')
+    Retorno.son = father
+    Retorno.daughter = mother
+
+    return Retorno
+
 
 if __name__ == '__main__':
     matrix = create_random_matriz()
-    _fitness(matrix)
+    for i in range(10):
+        matrix = _fitness(matrix)
 
     print('############################################## A matrix continua igual ?  ##############################################')
     print(matrix)
