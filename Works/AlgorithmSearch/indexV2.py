@@ -124,6 +124,12 @@ def invert_random_column(father, mother):
         father[i][random_item_chromosome] = mother[i][random_item_chromosome]
         mother[i][random_item_chromosome] = father_value
 
+    Retorno = namedtuple('retorno', 'father mother')
+    Retorno.mother = mother
+    Retorno.father = father
+
+    return Retorno
+
 
 def create_controll(matriz, clear_unique_values=True):
     controll = dict()
@@ -165,7 +171,10 @@ def invert_repeted_values(m_1, m_2, first):
 
 def do_mutation_cycle(father, mother):
     controll = create_controll(father)
-    invert_random_column(father, mother)
+    Retorno = invert_random_column(father, mother)
+
+    father = Retorno.father
+    mother = Retorno.mother
 
     first = True
     while len(controll) > 0:
