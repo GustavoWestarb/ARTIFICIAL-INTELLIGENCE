@@ -102,14 +102,8 @@ def create_new_mutated_matrix(matrix, key_list):
 
     do_mutation_cycle(father, mother)
 
-    population = []
-    population = new_poppulation;
-
-    population.append(father)
-    population.append(mother)
-
-    new_poppulation = []
-    new_poppulation = population
+    new_poppulation.append(father)
+    new_poppulation.append(mother)
 
     return new_poppulation
 
